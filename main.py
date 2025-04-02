@@ -5,6 +5,7 @@ import yaml
 from datetime import datetime
 import base_variables
 import measure_calculation_woCopy
+import id_processing
 
 
 # Read configuration file
@@ -24,6 +25,6 @@ base_variables.add_visitcode_column(save_path_baseVar, save_path_baseVar)
 # (2) add calculated values
 measure_calculation_woCopy.calculate_and_save(save_path_baseVar, save_path_calVar)
 
-# (3) Id
+# (3) perform the id processing
 
 

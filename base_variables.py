@@ -3,7 +3,6 @@ import pandas as pd
 
 def add_sitecode_column(base_path, save_path):
     reference_file = os.path.join(base_path, 'Kind-of-participant.csv')
-    # print(f"Looking for reference file at: {os.path.abspath(reference_file)}")
     if not os.path.exists(reference_file):
         print("❌ Reference file 'Kind-of-participant.csv' not found.")
         return
@@ -25,7 +24,6 @@ def add_sitecode_column(base_path, save_path):
 
     if not os.path.exists(save_path):
         os.makedirs(save_path)
-        # print(f"📁 Created output directory: {os.path.abspath(save_path)}")
 
     excluded_files = {'Kind-of-participant.csv', 'study-participant-forms.csv'}
     csv_files = [f for f in os.listdir(base_path) if f.endswith(".csv") and f not in excluded_files]
@@ -95,7 +93,7 @@ def add_sitecode_column(base_path, save_path):
         log_file_path = os.path.join(save_path, '_sitecode_log.txt')
         with open(log_file_path, 'w', encoding='utf-8') as log_file:
             log_file.write('\n'.join(log_entries))
-        # print(f"📝 SiteCode log file created at {os.path.abspath(log_file_path)}")
+        # print(f"✅ SiteCode log file created at {os.path.abspath(log_file_path)}")
 
 
     if missing_records:
@@ -104,7 +102,7 @@ def add_sitecode_column(base_path, save_path):
             f.write("file_name,participant_identifier\n")
             for file_name, pid in missing_records:
                 f.write(f"{file_name},{pid}\n")
-        print(f"📄 Missing SiteCodes saved to: {os.path.abspath(missing_log_path)}")
+        print(f"✅⚠️ Missing SiteCodes saved to: {os.path.abspath(missing_log_path)}")
 
     print(f"--- ✅✅✅ SiteCode processing completed! All outputs have been saved to: {save_path} ------------")
 
@@ -194,7 +192,7 @@ def add_visitcode_column(base_path, save_path):
         log_file_path = os.path.join(save_path, '_visitcode_log.txt')
         with open(log_file_path, 'w', encoding='utf-8') as f:
             f.write('\n'.join(log_entries))
-        # print(f"📝 VisitCode log file saved to: {os.path.abspath(log_file_path)}")
+        # print(f"✅ VisitCode log file saved to: {os.path.abspath(log_file_path)}")
 
     # if missing_records:
     #     missing_log_path = os.path.join(save_path, 'visitcode_missing.txt')
@@ -202,7 +200,7 @@ def add_visitcode_column(base_path, save_path):
     #         f.write("file_name,visit_name\n")
     #         for fname, visit in missing_records:
     #             f.write(f"{fname},{visit}\n")
-    #     print(f"📄 Missing VisitCodes saved to: {os.path.abspath(missing_log_path)}")
+    #     print(f"Missing VisitCodes saved to: {os.path.abspath(missing_log_path)}")
 
     if missing_records:
         missing_log_path = os.path.join(save_path, '_visitcode_missing.txt')
@@ -210,11 +208,8 @@ def add_visitcode_column(base_path, save_path):
             f.write("file_name,visit_name\n")
             for fname, visit in missing_records:
                 f.write(f"{fname},{visit}\n")
-        print(f"📄 Missing VisitCodes saved to: {os.path.abspath(missing_log_path)}")
+        print(f"✅⚠️ Missing VisitCodes saved to: {os.path.abspath(missing_log_path)}")
 
     print(f"--- ✅✅✅ VisitCode processing completed! All outputs have been saved to: {save_path} ------------")
 
-# Example usage
-# folder_path = "./csv_folder"  # 변경 필요
-# save_path = r"C:\Users\kimgn\Documents\GitHub\IMMERSE_2025\data_processed\maganamed\00_calculated"
-# add_site_code_column(folder_path, save_path)
+

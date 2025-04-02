@@ -173,17 +173,17 @@ def calculate_and_save(base_path, save_path):
                 ## Transform reverse-coded items
                 reverse_coded_items = ['2_CTQ', '5_CTQ', '7_CTQ', '13_CTQ', '19_CTQ', '26_CTQ', '28_CTQ']
 
-                original_ctq_values = df[reverse_coded_items].values  # ✅ 추후 복원을 위해 NumPy 배열로 원본 값 저장
+                original_ctq_values = df[reverse_coded_items].values
                 df[reverse_coded_items] = 6 - df[reverse_coded_items]
                 ## Calculate the total of all items
-                # df['CTQ_total_check'] = df[[f'{i}_CTQ' for i in range(1, 29)]].sum(axis=1) #TODO 지울것
+                # df['CTQ_total_check'] = df[[f'{i}_CTQ' for i in range(1, 29)]].sum(axis=1)
                 # CTQ_total 계산 (row sum)
                 columns_to_sum = ['1_CTQ', '2_CTQ', '3_CTQ', '4_CTQ', '5_CTQ', '6_CTQ', '7_CTQ', '8_CTQ', '9_CTQ',
                                   '11_CTQ', '12_CTQ', '13_CTQ', '14_CTQ', '15_CTQ', '17_CTQ', '18_CTQ', '19_CTQ',
                                   '20_CTQ', '21_CTQ', '23_CTQ', '24_CTQ', '25_CTQ', '26_CTQ', '27_CTQ', '28_CTQ']
 
                 df['CTQ_total'] = df[columns_to_sum].sum(axis=1)
-                df[reverse_coded_items] = original_ctq_values  # ✅ 원래 값으로 복원
+                df[reverse_coded_items] = original_ctq_values
 
 
             elif df_name == 'df_WAI_P':
