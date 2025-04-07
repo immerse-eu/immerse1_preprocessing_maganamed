@@ -284,3 +284,28 @@ def calculate_and_save(base_path, save_path):
             print(f"Error processing {file_name}: {e}")
 
     print(f"--- ✅✅✅ Calculated Values processing completed! All outputs have been saved to: {save_path} ------------")
+
+
+def copy_unprocessed_files(source_dir, target_dir):
+    """
+    Copy files from source_dir to target_dir only if they do not already exist in target_dir.
+    Existing files in target_dir will not be overwritten.
+    """
+    copied_files = []
+
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+
+    for filename in os.listdir(source_dir):
+        source_file = os.path.join(source_dir, filename)
+        target_file = os.path.join(target_dir, filename)
+
+        if not os.path.isfile(source_file):
+            continue  # Skip directories or non-files
+
+        if not os.path.exists(target_file):
+            shutil.copy2(source_file, target_file)
+            copied_files.append(filename)
+
+    print(f"✅ {len(copied_files)} files copied (existing files were skipped)")
+    return copied_files

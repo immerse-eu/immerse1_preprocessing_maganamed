@@ -25,7 +25,7 @@ def add_sitecode_column(base_path, save_path):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
 
-    excluded_files = {'Kind-of-participant.csv', 'study-participant-forms.csv'}
+    excluded_files = {'study-participant-forms.csv', "participants.csv", "study-queries.csv"}
     csv_files = [f for f in os.listdir(base_path) if f.endswith(".csv") and f not in excluded_files]
 
     if not csv_files:
@@ -99,9 +99,9 @@ def add_sitecode_column(base_path, save_path):
     if missing_records:
         missing_log_path = os.path.join(save_path, '_sitecode_missing.txt')
         with open(missing_log_path, 'w', encoding='utf-8') as f:
-            f.write("file_name,participant_identifier\n")
+            f.write("file_name: participant_identifier\n")
             for file_name, pid in missing_records:
-                f.write(f"{file_name},{pid}\n")
+                f.write(f"{file_name}: {pid}\n")
         print(f"✅⚠️ Missing SiteCodes saved to: {os.path.abspath(missing_log_path)}")
 
     print(f"--- ✅✅✅ SiteCode processing completed! All outputs have been saved to: {save_path} ------------")
@@ -109,6 +109,7 @@ def add_sitecode_column(base_path, save_path):
 def add_visitcode_column(base_path, save_path):
     visit_map = {
         0: [
+            "Screening", "Enrolment (patient)", "Enrolment (patient) CSRI", "Enrolment (Clinician)",
             "Baseline", "Baseline (patient)", "ESM Baseline",
             "Baseline (team lead)", "Baseline (finance staff)", "Baseline (clinician)"
         ],
@@ -123,9 +124,6 @@ def add_visitcode_column(base_path, save_path):
         3: [
             "T3 (12 months)", "T3 (patient) CSRI", "T3 (12 months) (patient)",
             "ESM T3", "T3 (12 months) (clinician)", "T3 (12month) (2nd clinician)"
-        ],
-        0: [
-            "Screening", "Enrolment (patient)", "Enrolment (patient) CSRI", "Enrolment (Clinician)"
         ]
     }
 
@@ -138,7 +136,7 @@ def add_visitcode_column(base_path, save_path):
     missing_records = []
 
     # csv_files = [f for f in os.listdir(base_path) if f.endswith(".csv")]
-    excluded_files = {'participants.csv'}
+    excluded_files = {'study-participant-forms.csv', "participants.csv", "study-queries.csv"}
     csv_files = [f for f in os.listdir(base_path) if f.endswith(".csv") and f not in excluded_files]
 
     for file_name in csv_files:
@@ -205,9 +203,9 @@ def add_visitcode_column(base_path, save_path):
     if missing_records:
         missing_log_path = os.path.join(save_path, '_visitcode_missing.txt')
         with open(missing_log_path, 'w', encoding='utf-8') as f:
-            f.write("file_name,visit_name\n")
+            f.write("file_name: visit_name\n")
             for fname, visit in missing_records:
-                f.write(f"{fname},{visit}\n")
+                f.write(f"{fname}: {visit}\n")
         print(f"✅⚠️ Missing VisitCodes saved to: {os.path.abspath(missing_log_path)}")
 
     print(f"--- ✅✅✅ VisitCode processing completed! All outputs have been saved to: {save_path} ------------")
