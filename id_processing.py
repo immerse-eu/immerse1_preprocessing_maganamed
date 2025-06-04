@@ -211,7 +211,8 @@ def apply_merge_operations(df_ref, dfs):
                     until_visits = [v.strip() for v in until_visits if v.strip()]
 
                     diary_col_idx = df.columns.get_loc("diary_date") + 1
-                    data_cols = df.columns[diary_col_idx:6]  # 6 columns excluded, because of calculated values
+                    # set no ending idx as csv-files have different amount of columns
+                    data_cols = df.columns[diary_col_idx:]  
 
                     for visit in until_visits:
                         cid_mask = (df["participant_identifier"] == cid) & (df["visit_name"] == visit)
